@@ -1,5 +1,5 @@
 # Login_Py
-これは、FlaskとSQLAlchemyを使用して実装されたシンプルなログイン画面です。
+FlaskとSQLAlchemyを使用して実装されたログイン画面です。
 
 ## 機能
 
