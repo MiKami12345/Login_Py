@@ -51,7 +51,7 @@ def login_error():
 
 
 # ログアウト機能
-@app.route('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
