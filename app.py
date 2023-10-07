@@ -96,6 +96,19 @@ def register():
 def registration_success():
     return render_template('registration_success.html')
 
+
+# タスク一覧を取得
+@app.route('/get_tasks', methods=['GET'])
+def get_tasks():
+    if 'username' in session:
+        username = session['username']
+        user = User.query.filter_by(username=username).first()
+        tasks = Task.query.filter_by(user_id=user.id).all()
+        task_list = [{"id": task.id, "description": task.description} for task in tasks]
+        return jsonify({"tasks": task_list})
+    else:
+        return jsonify({"message": "ログインしていません"})
+
 # タスクの生成
 @app.route('/create_task', methods=['POST'])
 def create_task():
@@ -123,7 +136,9 @@ def delete_task(task_id):
             return jsonify({'message': 'タスクが削除されました'})  # JSON形式でメッセージを返す
         else:
             return jsonify({'message': 'タスクが見つかりませんでした'})  # JSON形式でメッセージを返す
-            
+    else:
+        return jsonify({'message': 'ログインしていません'})  # ログインしていない場合もメッセージを返す
+           
 # ユーザーページのルートを追加
 @app.route('/user_page')
 def user_page():

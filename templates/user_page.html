@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>ユーザーページ</title>
-    <style>
+    <style>      
         body {
             text-align: center; /* ページ全体を中央揃えにする */
         }
@@ -30,13 +30,9 @@
         <button type="submit">追加</button>
     </form>
 
-    <!-- タスク作成メッセージ -->
-    <div id="task-created-message" style="display: none;"></div>
-
     <!-- タスク一覧 -->
     <h2>タスク一覧</h2>
-    <table id="task-list"></table>
-    <table>
+    <table id="task-list">
         <thead>
             <tr>
                 <th>タスク名</th>
@@ -76,7 +72,7 @@
     
         // タスク削除成功メッセージを取得
         const deleteTaskMessage = document.getElementById('delete-task-message');
-    
+        
         // タスク削除ボタンをクリックしたときの処理
         function handleDeleteButtonClick(event) {
             event.preventDefault();
@@ -106,7 +102,39 @@
         deleteButtons.forEach(button => {
             button.addEventListener('click', handleDeleteButtonClick);
         });
-    
+           
+        // タスク作成フォームが送信されたときの処理
+        document.getElementById('create-task-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+
+            // タスクを作成するためのAjaxリクエストを送信
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'タスクが作成されました') {
+                    // タスクが作成されたメッセージをアラートとして表示
+                    alert(data.message);
+
+                    // タスク一覧を更新
+                    updateTaskList();
+
+                    // フォームをクリア
+                    form.reset();
+                } else {
+                    // タスク作成に失敗した場合の処理
+                    alert('タスクの作成に失敗しました');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+        
         // タスク一覧を更新する関数
         function updateTaskList() {
             // タスク一覧をAjaxで取得
@@ -115,15 +143,15 @@
             .then(data => {
                 // タスク一覧テーブルをクリア
                 taskList.innerHTML = '';
-    
+
                 // タイトル行を再追加
                 taskList.innerHTML = `
                     <tr>
                         <th>タスク名</th>
-                        <th>削除</th>
+                        <th>操作</th>
                     </tr>
                 `;
-    
+
                 // タスクを追加
                 data.tasks.forEach(task => {
                     const row = document.createElement('tr');
@@ -142,41 +170,7 @@
                 console.error('Error:', error);
             });
         }
-    
-        // タスク作成フォームが送信されたときの処理
-        document.getElementById('create-task-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-    
-            // タスクを作成するためのAjaxリクエストを送信
-            fetch(form.action, {
-                method: form.method,
-                body: formData,
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message === 'タスクが作成されました') {
-                    // タスクが作成されたメッセージを表示
-                    taskCreatedMessage.textContent = data.message;
-                    taskCreatedMessage.style.display = 'block';
-    
-                    // タスク一覧を更新
-                    updateTaskList();
-    
-                    // フォームをクリア
-                    form.reset();
-                } else {
-                    // タスク作成に失敗した場合の処理
-                    taskCreatedMessage.textContent = 'タスクの作成に失敗しました';
-                    taskCreatedMessage.style.display = 'block';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-    
+
         // ページ読み込み時にタスク一覧を初期化
         updateTaskList();
     </script>
