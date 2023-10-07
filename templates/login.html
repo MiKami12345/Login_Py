@@ -6,19 +6,20 @@
 </head>
 </head>
 <body>
-    <div class="container form-container"></div>
-    <h1>ログイン</h1>
-    <form method="POST">
-        <label for="username">ユーザー名:</label>
-        <input type="text" id="username" name="username" required><br><br>
+    <div class="container form-container">
+        <h1>ログイン</h1>
+        <form method="POST">
+            <label for="username">ユーザー名:</label>
+            <input type="text" id="username" name="username" required><br><br>
 
-        <label for="password">パスワード:</label>
-        <input type="password" id="password" name="password" required><br><br>
+            <label for="password">パスワード:</label>
+            <input type="password" id="password" name="password" required><br><br>
 
-        <input type="submit" value="ログイン">
-    </form>
-
-    <!-- 新規登録画面への遷移ボタン -->
-    <a href="{{ url_for('register') }}">新規登録はこちら</a>
+            <input type="submit" value="ログイン">
+        </form>
+        
+        <!-- 新規登録画面への遷移ボタン -->
+        <a href="{{ url_for('register') }}">新規登録はこちら</a>
+    </div>
 </body>
 </html>

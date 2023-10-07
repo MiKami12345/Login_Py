@@ -5,9 +5,10 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container form-container"></div>
-    <h1>新規登録成功</h1>
-    <p>登録が完了しました。</p>
-    <a href="{{ url_for('login') }}">ログイン画面に戻る</a>
+    <div class="container form-container">
+        <h1>新規登録成功</h1>
+        <p>登録が完了しました。</p>
+        <a href="{{ url_for('login') }}">ログイン画面に戻る</a>
+    </div>
 </body>
 </html>
