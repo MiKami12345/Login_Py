@@ -1,0 +1,17 @@
+.container {
+    width: 80%;
+    max-width: 400px; /* コンテンツの最大幅 */
+    margin: 0 auto; /* 水平方向に中央配置 */
+    padding: 20px; /* コンテナ内の余白 */
+    text-align: center; /* テキストを中央配置 */
+}
+
+/* ログイン画面や新規登録画面のフォーム */
+.form-container {
+    margin-top: 100px; /* 上方向に余白を設定して画面の中央上方に配置 */
+}
+
+/* ログイン成功画面や登録成功画面のメッセージ */
+.message-container {
+    margin-top: 50px; /* 上方向に余白を設定して画面の中央上方に配置 */
+}
