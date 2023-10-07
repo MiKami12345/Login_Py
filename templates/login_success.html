@@ -1,18 +1,25 @@
 <!DOCTYPE html>
+<!-- templates/login_success.html -->
+<!DOCTYPE html>
 <html>
 <head>
     <title>ログイン成功</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        // ページ読み込み後、3秒後に指定したURLにリダイレクトする関数
+        function redirectToDashboard() {
+            setTimeout(function () {
+                window.location.href = "{{ url_for('user_page') }}";  // /user_pageへのURLに変更
+            }, 3000); // 3秒待つ
+        }
+
+        // ページ読み込み時に redirectToDashboard 関数を呼び出す
+        window.onload = redirectToDashboard;
+    </script>
 </head>
 <body>
-    <div class="container form-container">
-        <h1>ログイン成功</h1>
-        <p>ログインが成功しました。</p>
-
-        <!-- ログアウトボタン -->
-        <form method="POST" action="/logout">
-            <input type="submit" value="ログアウト">
-        </form>
-    </div>
+    <h1>ログイン成功</h1>
+    <p>{{ login_message }} {{ username }}さん、こんにちは。</p>
+    <p>3秒後にダッシュボードにリダイレクトします。</p>
 </body>
 </html>
+
