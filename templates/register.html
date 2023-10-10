@@ -17,11 +17,8 @@
             <input type="submit" value="新規登録">
         </form>
 
-        <!-- 新規登録成功メッセージ -->
-        {% if message %}
-        <p>{{ message }}</p>
         <a href="{{ url_for('login') }}">ログイン画面に戻る</a>
-        {% endif %}
+
     </div>
 </body>
 </html>
